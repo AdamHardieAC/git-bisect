@@ -14,12 +14,12 @@ With our assigned `good` & `bad` commits, we can reasonably assume that the prob
 ## Working example
 Assume we have the following commit history (`git log --oneline`): 
 
-655cc94 *(HEAD -> main, origin/main) division method + test suite*
-7c516b2 *subtraction method + test suite*
-f6c38ca *multiplication method + test suite*
-931bd0c *it's addition not add*
-8b321ac *more details of the  process*
-6f12ff6 *addition functionality added*
+- 655cc94 *(HEAD -> main, origin/main) division method + test suite*
+- 7c516b2 *subtraction method + test suite*
+- f6c38ca *multiplication method + test suite*
+- 931bd0c *it's addition not add*
+- 8b321ac *more details of the  process*
+- 6f12ff6 *addition functionality added*
 
 In this example, we know that the bug exists at commit `655cc94`, so we will mark that as our initial `bad` commit `git bisect bad`. 
 
@@ -32,12 +32,12 @@ In our example, it's taken us to commit `931bd0c`. After running our tests, we c
 After marking `931bd0c` as `good`, it takes us to commit `7c516b2` and we carry out the same process as before. After running our tests, we can see that the error happens with this commit, meaning this is a `bad` commit and we mark it as such with `git bisect bad`.
 
 At this point, it's worth looking back to our commits to assess where we're at in the process to understand how the process has worked thus far:
-655cc94 *(HEAD -> main, origin/main) division method + test suite* - original `bad` commit
-7c516b2 *subtraction method + test suite* - bisected `bad` commit
-f6c38ca *multiplication method + test suite*
-931bd0c *it's addition not add* - bisected `good` commit
-8b321ac *more details of the  process*
-6f12ff6 *addition functionality added* - original `good` commit
+- 655cc94 *(HEAD -> main, origin/main) division method + test suite* - original `bad` commit
+- 7c516b2 *subtraction method + test suite* - bisected `bad` commit
+- f6c38ca *multiplication method + test suite*
+- 931bd0c *it's addition not add* - bisected `good` commit
+- 8b321ac *more details of the  process*
+- 6f12ff6 *addition functionality added* - original `good` commit
 
 Based on the commits, we've still got our original `good` & `bad` commits, we also have our bisected `good` & `bad` commits. Looking at them, we can reasonably assume that between the commits of `931bd0c` & `7c516b2` the regression/bug/problem was introduced.
 
@@ -45,28 +45,28 @@ Based on the commits, we've still got our original `good` & `bad` commits, we al
 After marking `7c516b2` as a `bad` commit, the bisect process takes us to commit `f6c38ca`, as thats the commit between when things were `good` and when things were `bad`. By running our tests at this point, we can see that they all pass, and thus, this is a `good` commit and we mark it as one with `git bisect good`.
 
 Assessing where we're at now, it becomes a bit more clear: 
-655cc94 *(HEAD -> main, origin/main) division method + test suite* - original `bad` commit
-7c516b2 *subtraction method + test suite* - bisected `bad` commit
-f6c38ca *multiplication method + test suite* - bisected `good` commit
-931bd0c *it's addition not add* - bisected `good` commit
-8b321ac *more details of the  process*
-6f12ff6 *addition functionality added* - original `good` commit
+- 655cc94 *(HEAD -> main, origin/main) division method + test suite* - original `bad` commit
+- 7c516b2 *subtraction method + test suite* - bisected `bad` commit
+- f6c38ca *multiplication method + test suite* - bisected `good` commit
+- 931bd0c *it's addition not add* - bisected `good` commit
+- 8b321ac *more details of the  process*
+- 6f12ff6 *addition functionality added* - original `good` commit
 
 By marking this commit as good, the bisect process will narrow down to the first commit in which the problem exists, in our case:
 
-`7c516b2` is the first bad commit
-commit `7c516b2`
-Author: AdamHardieAC <adam.hardie@arnoldclark.com>
-Date:   Fri Feb 7 11:01:32 2025 +0000
+    `7c516b2` is the first bad commit.
+    commit `7c516b2`
+    Author: AdamHardieAC <adam.hardie@arnoldclark.com>
+    Date:   Fri Feb 7 11:01:32 2025 +0000
 
-  subtraction method + test suite
+      subtraction method + test suite
 
-src/modules/subtraction.js      | 4 ++++
-src/spec/multiplication.test.js | 2 +-
-src/spec/subtraction.test.js    | 5 +++++
-3 files changed, 10 insertions(+), 1 deletion(-)
-create mode 100644 src/modules/subtraction.js
-create mode 100644 src/spec/subtraction.test.js
+    src/modules/subtraction.js      | 4 ++++
+    src/spec/multiplication.test.js | 2 +-
+    src/spec/subtraction.test.js    | 5 +++++
+    3 files changed, 10 insertions(+), 1 deletion(-)
+    create mode 100644 src/modules/subtraction.js
+    create mode 100644 src/spec/subtraction.test.js
 
 At this point, we know which commit the regression/bug/problem was introduced (commit `7c516b2`) and need to end our bisect process.
 
