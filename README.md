@@ -21,7 +21,7 @@ Assume we have the following commit history (`git log --oneline`):
 - 8b321ac *more details of the  process*
 - 6f12ff6 *addition functionality added*
 
-In this example, we know that the bug exists at commit `655cc94`, so we will mark that as our initial `bad` commit `git bisect bad`. 
+In this example, we know that the bug exists at commit `655cc94`, so we will mark that as our initial `bad` commit by running `git bisect start` & `git bisect bad`. 
 
 We also know that the bug definitely didn't exist at commit `6f12ff6`, so we will mark that commit as `git bisect good 6f12ff6`.
 
